@@ -1,0 +1,13 @@
+public class Match {
+Obstacles [] obstacles;
+    public void doit(Team team){
+        for (Actions a: team.getPlayers()) {
+            for (Obstacles o: obstacles) {
+                o.Doit(a);
+                if(!a.isOndistance());
+            }
+                 }
+    }
+}
+
+
