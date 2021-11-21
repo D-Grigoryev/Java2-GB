@@ -1,6 +1,5 @@
 public class Wall extends Obstacles{
     int height;
-
     Wall(int height){
         this.height=height;
     }

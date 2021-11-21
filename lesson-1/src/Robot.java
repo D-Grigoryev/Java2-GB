@@ -7,12 +7,18 @@ public class Robot implements Actions {
         this.MAX_JUMP=MAX_JUMP;
     }
     @Override
-    public void run(int MAX_DISTANCE) {
+    public void run(int distance) {
+        if (MAX_DISTANCE<distance){
+            System.out.println("Робот не смог пробежать дистанцию");
+        }
         System.out.println("Робот пробежал: "+ MAX_DISTANCE+" м.");
     }
 
     @Override
-    public void jump(int MAX_JUMP) {
+    public void jump(int height) {
+        if (MAX_JUMP<height){
+            System.out.println("Робот не смог перепрыгнуть препятсвие");
+        }
         System.out.println("Робот прыгнул на: "+MAX_JUMP+" м.");
 
     }

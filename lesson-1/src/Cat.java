@@ -7,12 +7,18 @@ public class Cat implements Actions{
         this.MAX_JUMP=MAX_JUMP;
     }
     @Override
-    public void run(int MAX_DISTANCE) {
+    public void run(int distance) {
+        if (MAX_DISTANCE<distance){
+            System.out.println("Кот не смог пробежать дистанцию");
+        }
         System.out.println("Кот пробежал: "+ MAX_DISTANCE+" м.");
     }
 
     @Override
-    public void jump(int MAX_JUMP) {
+    public void jump(int height) {
+        if (MAX_JUMP<height){
+            System.out.println("Кот не смог перепрыгнуть препятсвие");
+        }
         System.out.println("Кот прыгнул на: "+MAX_JUMP+" м.");
 
     }
