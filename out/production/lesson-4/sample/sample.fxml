@@ -10,7 +10,7 @@
 <VBox fx:controller="sample.Controller" xmlns:fx="http://javafx.com/fxml" alignment="center">
     <TextArea fx:id="mainTextArea" editable="false" VBox.vgrow="ALWAYS" />
     <HBox >
-        <TextField fx:id="mainTextField" HBox.hgrow="ALWAYS" onAction="#btnClickAction"/>
+        <TextField fx:id="mainTextField" HBox.hgrow="ALWAYS" onAction="#btnOneClickAction"/>
         <Button text="Отправить" onAction="#btnOneClickAction"/>
     </HBox>
 </VBox>

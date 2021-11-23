@@ -17,8 +17,4 @@ public class Controller {
 
     }
 
-    public void btnClickAction(ActionEvent actionEvent) {
-        btnOneClickAction(actionEvent);
-        mainTextField.clear();
-    }
-}
+   }
