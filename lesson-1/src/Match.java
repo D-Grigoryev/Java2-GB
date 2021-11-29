@@ -8,7 +8,7 @@ Obstacles [] obstacles;
         for (Actions a: team.getPlayers()) {
             for (Obstacles o: obstacles) {
                 o.Doit(a);
-                if(!a.isOndistance());
+               // if(!a.isOndistance());
             }
                  }
     }
