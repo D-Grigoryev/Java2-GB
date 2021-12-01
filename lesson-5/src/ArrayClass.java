@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class ArrayClass {
     static final int SIZE = 10_000_000;
     static final int HALF = SIZE / 2;
@@ -8,49 +10,60 @@ public class ArrayClass {
     }
 
     public void firstMetod() {
-        for (int i = 0; SIZE > i; i++) {
-            arr[i] = 1.0f;
-        }
+        Arrays.fill(arr,1.0f);
         long a = System.currentTimeMillis();
-        for (int i = 0; SIZE > i; i++) {
+        for (int i = 0; arr.length > i; i++) {
             arr[i] = (float) (arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
         }
-        System.out.println("Время заполнения массива первым методом: " + (System.currentTimeMillis() - a) + " ms.");
+        long b = System.currentTimeMillis();
+        System.out.println("Время заполнения массива первым методом: "+(b-a)+" ms.");
 
     }
 
-    public void secondMetod() {
+    public void secondMetod() throws InterruptedException {
         float [] arr1 = new float[HALF];
         float [] arr2 = new float[HALF];
-        for (int i = 0; SIZE > i; i++) {
-            arr[i] = 1.0f;
-        }
+        Arrays.fill(arr,1.0f);
         long a = System.currentTimeMillis();
         System.arraycopy(arr,0,arr1,0,HALF);
         System.arraycopy(arr,HALF,arr2,0,HALF);
+        long b = System.currentTimeMillis();
+        System.out.println("Время разбивки массива во втором методе: "+(b-a)+" ms.");
+
         Thread thread1 = new Thread(()-> {
+            long a1start = System.currentTimeMillis();
             for (int i = 0; arr1.length > i; i++) {
-                arr1[i] = (float) (arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
+                arr1[i] = (float) (arr1[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
 
             }
-            System.out.println("Время заполнения  первой половины массива вторым методом: "
-                    + (System.currentTimeMillis() - a) + " ms.");
+            long a1end = System.currentTimeMillis();
+            System.out.println("Время заполнения первой половины массива первым методом: "
+                    + (a1end-a1start) + " ms.");
         });
         Thread thread2 = new Thread(()-> {
+            long a2start = System.currentTimeMillis();
             for (int i = 0; arr2.length > i; i++) {
-                arr2[i] = (float) (arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
-            }
+               int j=i+HALF;
+                arr2[i] = (float) (arr2[i] * Math.sin(0.2f + j / 5) * Math.cos(0.2f + j / 5) * Math.cos(0.4f + j / 2));
 
+            }
+            long a2end = System.currentTimeMillis();
             System.out.println("Время заполнения второй половины массива вторым методом: "
-                    + (System.currentTimeMillis() - a) + " ms.");
+                    + (a2end-a2start) + " ms.");
         });
         thread1.start();
         thread2.start();
-        float [] mergeArr = new float[SIZE];
-        System.arraycopy(arr1,0,mergeArr,0,arr1.length);
-        System.arraycopy(arr2,0,mergeArr,HALF,arr2.length);
+        thread1.join();
+        thread2.join();
+
+        long c = System.currentTimeMillis();
+        System.arraycopy(arr1,0,arr,0,HALF);
+        System.arraycopy(arr2,0,arr,HALF,HALF);
+               long d = System.currentTimeMillis();
         System.out.println("Время склейки массива вторым методом: "
-                + (System.currentTimeMillis() - a) + " ms.");
+                + (d - c) + " ms.");
+        System.out.println("Общее время работы: "
+                + (d - a) + " ms.");
 
     }
 }
